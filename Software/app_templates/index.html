@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <title>DQSoft Clock Configuration</title>
+  <style>
+    body{
+      background: #ffffff;
+      font-family: 'Quicksand', sans-serif;
+        }
+
+    /* Clock parameters styling */
+    .clock-params {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 400px;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    .clock-params h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #343a40;
+      font-size: 16px;
+      text-align: center;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 8px;
+    }
+    
+    .param-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .param-row label {
+      color: #495057;
+      font-weight: 600;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    
+    .param-row input {
+      background: white;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 14px;
+      text-align: center;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    .param-row input:focus {
+      outline: none;
+      border-color: #80bdff;
+      box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+    }
+
+    /* Control buttons styling */
+    .control-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px auto;
+      max-width: 400px;
+    }
+    
+    .control-button {
+      border: none;
+      border-radius: 8px;
+      color: white;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+      min-width: 120px;
+    }
+    
+    .control-button.clock {
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+    }
+    
+    .control-button.clock:hover {
+      background: linear-gradient(135deg, #e55a2b, #e8841a);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    a {
+      text-decoration: none;
+      color: orange ;
+    }
+
+
+footer {
+  text-align: center;
+  padding: 3px;
+  color: grey;
+}
+
+.header {
+  text-align: center;
+  padding: 3px;
+  color: grey;
+  position: relative;
+}
+
+/* Theme toggle styling */
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: #f0f0f0;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.theme-toggle:hover {
+  background: #e0e0e0;
+  transform: scale(1.1);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .header {
+  color: #e0e0e0;
+}
+
+body.dark-mode .theme-toggle {
+  background: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .theme-toggle:hover {
+  background: #444;
+}
+
+body.dark-mode .clock-params {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+body.dark-mode .clock-params h3 {
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .param-row label {
+  color: #ccc;
+}
+
+body.dark-mode .param-row input {
+  background: #333;
+  border-color: #555;
+  color: #e0e0e0;
+}
+
+body.dark-mode .param-row input:focus {
+  border-color: #66b3ff;
+}
+
+body.dark-mode footer {
+  color: #aaa;
+}
+
+
+b, strong {
+   color: orange;
+   }
+
+
+.button:active::after {
+  background: #aaa; /* Change background color when button is clicked */
+}
+
+.button:active {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Add a slight shadow when button is clicked */
+}
+
+    </style>
+</head>
+
+<body>
+  <div class="header">
+            <h1>DQSoft Clock Configuration</h1>
+            <div class="theme-toggle" onclick="toggleDarkMode()">
+              <span class="toggle-icon">🌙</span>
+            </div>
+  </div>
+
+  <form class="login-form" id="config" action="/configure" method="POST" autocomplete="off" autocapitalize="none" >
+
+    <!-- Weekend -->
+    <div class="clock-params">
+      <h3>Wekend Alarm Setting</h3>
+      <div class="param-row">
+        <input type="checkbox" id="weekend" name="weekend" {{weekend}}>
+        <label for="weekend">Alarm on Weekends</label>
+      </div>
+    </div>
+
+    <!-- Wake Parameters -->
+    <div class="clock-params">
+      <h3>Wake Alarm Settings</h3>
+      <div class="param-row">
+        <label for="waketime-input">Time:</label>
+        <input type="time" id="waketime-input" name="wake_time" value="{{wake_time}}">
+      </div>
+      <span id="timeError" style="color: red;"></span>
+      <div class="param-row">
+        <p>Sound:</p>
+        <input type="radio" id="beep" name="wake_sound" value="1">
+        <label for="beep">Beep</label><br>
+        <input type="radio" id="rooster" name="wake_sound" value="2">
+        <label for="rooster">Rooster</label><br>
+        <input type="radio" id="alarm" name="wake_sound" value="3">
+        <label for="alarm">Alarm</label>
+      </div>
+      <div class="param-row">
+        <label for="snooze-input">Snooze duration (minutes):</label>
+        <input type="number" id="snooze-input" name="snooze" value="{{snooze}}" min="1" max="10" step="1">
+      </div>
+    </div>
+
+    <!-- Sleep Parameters -->
+    <div class="clock-params">
+      <h3>Sleep Alarm Settings</h3>
+      <div class="param-row">
+        <label for="sleeptime-input">Time:</label>
+        <input type="time" id="sleeptime-input" name="sleep_time" value="{{sleep_time}}">
+      </div>
+      <div class="param-row">
+        <p>Sound:</p>
+        <input type="radio" id="gameover" name="sleep_sound" value="6">
+        <label for="gameover">Game Over</label><br>
+        <input type="radio" id="lullaby" name="sleep_sound" value="5">
+        <label for="lullaby">Lullaby</label><br>
+        <input type="radio" id="sweetdreams" name="sleep_sound" value="8">
+        <label for="alarm">Sweet Dreams</label>
+      </div>
+    </div>
+
+    <!-- Night Parameters -->
+    <div class="clock-params">
+      <h3>Night Settings</h3>
+      <div class="param-row">
+        <p>Color:</p>
+        <input type="radio" id="red" name="night_color" value="0">
+        <label for="red">Red</label><br>
+        <input type="radio" id="green" name="night_color" value="1">
+        <label for="green">Green</label><br>
+        <input type="radio" id="yellow" name="night_color" value="2">
+        <label for="yellow">Yellow</label><br>
+      </div>
+      <div class="param-row">
+        <label for="bright-input">Bright:</label>
+        <input type="number" id="bright-input" name="night_bright" value="{{night_bright}}" min="0" max="15" step="1">
+      </div>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+      <button id="apply-btn" class="control-button clock">Apply</button>
+    </div>
+
+  </form>
+
+  <script>
+    // JavaScript initialization
+    
+    // Dark mode toggle functionality
+    function toggleDarkMode() {
+      const body = document.body;
+      const toggle = document.querySelector('.theme-toggle .toggle-icon');
+      
+      body.classList.toggle('dark-mode');
+      
+      // Update toggle icon
+      if (body.classList.contains('dark-mode')) {
+        toggle.textContent = '☀️';
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        toggle.textContent = '🌙';
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    }
+    
+    // Load saved theme preference - default to dark mode
+    window.addEventListener('load', () => {
+      const darkMode = localStorage.getItem('darkMode');
+      const toggle = document.querySelector('.theme-toggle .toggle-icon');
+      
+      // Default to dark mode unless explicitly disabled
+      if (darkMode !== 'disabled') {
+        document.body.classList.add('dark-mode');
+        toggle.textContent = '☀️';
+      }
+
+      // Init radio buttons
+      document.querySelector('input[name="wake_sound"][value="{{wake_sound}}"]').checked = true;
+      document.querySelector('input[name="sleep_sound"][value="{{sleep_sound}}"]').checked = true;
+      document.querySelector('input[name="night_color"][value="{{night_color}}"]').checked = true;
+    });
+    
+    // Setup button handlers after DOM is loaded  
+    window.addEventListener('load', function() {
+      // Setup Apply button handler
+      const applyBtn = document.getElementById('apply-btn');
+      
+      if (!applyBtn) {
+        console.error('ERROR: Could not find apply-btn element');
+        return;
+      }
+    
+      // FORCE OVERRIDE: Remove any existing handlers and set new one
+      applyBtn.onclick = null;  // Clear existing handler
+      
+      // Set the new handler
+      const form = document.getElementById('config');
+      const wake_time = document.getElementById('waketime-input');
+      const sleep_time = document.getElementById('sleeptime-input');
+      const msg_error = document.getElementById('timeError');
+
+      applyBtn.addEventListener('click', async function(event) {
+        console.log('Checking times '+wake_time.value+' '+sleep_time.value);
+        msg_error.textContent = '';
+        if (wake_time.value > sleep_time.value) {
+          msg_error.textContent = 'Wake time must be before sleep time';
+           event.preventDefault(); 
+        }
+      }); // End of addEventListener
+
+    });
+    
+  </script>
+
+ <footer>
+        <p><small>&copy; a <a href="https://dqsoft.blogspot.com">DQSoft</a> thing</small></p>
+</footer>
+</body>
+</html>

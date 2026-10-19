@@ -1,0 +1,33 @@
+Supermini (upper view)
+
+                      ___
+                +-----!!!-----+
+         Tx  ---o     !!!     o--- 5V ring,mp3
+         Rx  ---o             o--- GND ring,sensor,display,mp3
+         GP1 ---o             o--- 3V3 sensor,display
+disp RST GP2 ---o             o--- GP13 anel
+                o             o--- GP12 sensor
+disp CS  GP4 ---o             o--- GP11
+disp DC  GP5 ---o             o--- GP10
+disp SDA GP6 ---o             o--- GP9 mp3 busy (trough resistive divisor)
+disp SCL GP7 ---o             o--- GP8 mp3 Rx
+                +-------------+
+
+
+MP3 (lower view)
+
+                      +--- Busy '
+        o o o o o o o o
+        +----------+
+        |          |
+        |          |
+        |          |
+        +----------+
+        o o o o o o o o
+        | | |       | +--- VCC supermini 5V
+        | | |       +----- RX  supermini Tx
+        | | |     
+        | | +------------- SPK+ speaker
+        | +--------------- GND supermini
+        +----------------- SPK- speaker
+
