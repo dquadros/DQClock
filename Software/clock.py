@@ -39,7 +39,7 @@ class CLOCK:
             self.alarm_sound = int(self.cfg['sleep_sound'])
         print (f"Next alarm: {self.alarm_time//60:02d}:{self.alarm_time%60:02d}")
 
-    def dayOk(now):
+    def _dayOk(self, now):
         '''Checks if alarm should sound today'''
         if self.cfg['weekend']:
             return True
@@ -76,7 +76,7 @@ class CLOCK:
                 self.alarm_repeat = time.time() + INTERVAL_SEC_ALARM
                 return 'play', self.alarm_sound
         elif min_from_localtime(now) == self.alarm_time:
-            if _dayOk(now):
+            if self._dayOk(now):
                 # start alarm
                 self.alarm_on = True
                 self.alarm_stop = time.time() + MAX_SEC_ALARM

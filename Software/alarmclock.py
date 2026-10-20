@@ -20,7 +20,7 @@ import time
 import uasyncio
 import utime
 
-VERSION = "0.2"
+VERSION = "0.3"
 
 COLORS = [ (1,0,0), (0,1,0), (1,1,0) ]
 
